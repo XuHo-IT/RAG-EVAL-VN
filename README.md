@@ -1,16 +1,5 @@
----
-title: RAG Eval Playground VN
-emoji: 🔍
-colorFrom: blue
-colorTo: green
-sdk: gradio
-sdk_version: "6.19.0"
-app_file: app.py
-pinned: false
-license: apache-2.0
----
 
-# 🔍 RAG Eval Playground VN
+#  RAG Eval Playground VN
 
 > Công cụ **đo lường thay vì đoán mò** khi chọn cấu hình RAG cho tài liệu tiếng Việt.
 
@@ -32,12 +21,12 @@ liệu khách quan: **retrieval precision, answer relevance, latency, cost (toke
 
 ## Tính năng
 
-- ⚖️ **Đa cấu hình song song** — so sánh chunking (fixed / recursive / semantic),
+- **Đa cấu hình song song** — so sánh chunking (fixed / recursive / semantic),
   embedding (bge-m3 vs multilingual-e5), bật/tắt rerank, đổi top-k.
-- 📊 **Bảng metrics + biểu đồ** — highlight 🏆 cấu hình thắng mỗi cột.
-- 🇻🇳 **Tiếng Việt là công dân hạng nhất** — tách câu VN (underthesea, có fallback),
+- **Bảng metrics + biểu đồ** — highlight 🏆 cấu hình thắng mỗi cột.
+- **Tiếng Việt là công dân hạng nhất** — tách câu VN (underthesea, có fallback),
   đếm token bằng chính tokenizer của embedding model.
-- 🆓 **Miễn phí hoàn toàn** — open model, không API key, chạy local hoặc HF Spaces.
+- **Miễn phí hoàn toàn** — open model, không API key, chạy local hoặc HF Spaces.
 
 ## Cách chạy (local)
 
@@ -61,7 +50,7 @@ python -m scripts.smoke_generation    # kiểm tra LLM
 python -m scripts.smoke_pipeline      # chạy trọn pipeline 1 cấu hình
 ```
 
-## Kết quả rút ra ⭐
+## Kết quả rút ra 
 
 Chạy thật 4 cấu hình trên tài liệu nội quy nhân sự VN mẫu, câu hỏi *"Nhân viên chính
 thức được bao nhiêu ngày phép năm và điều kiện cộng thêm?"* (CPU, Qwen2.5-1.5B):
