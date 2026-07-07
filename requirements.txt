@@ -1,0 +1,21 @@
+# Core UI (>=6 để tương thích huggingface_hub 1.x của stack transformers 5.x)
+gradio>=6.0.0
+
+# Embeddings & reranking (CrossEncoder cho bge-reranker-v2-m3)
+sentence-transformers>=3.0.0
+
+# Vector store (in-RAM)
+faiss-cpu>=1.8.0
+
+# LLM generation
+transformers>=4.44.0
+torch>=2.2.0
+accelerate>=0.30.0
+
+# Document reading
+pypdf>=4.0.0
+
+# Vietnamese word/sentence segmentation (optional, has regex fallback)
+underthesea>=6.8.0
+
+numpy>=1.24.0

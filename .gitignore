@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual env
+.venv/
+venv/
+env/
+
+# Model / HF cache (downloaded at runtime, ~6-7GB)
+.cache/
+hf_cache/
+*.bin
+*.safetensors
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Local uploads / scratch
+*.tmp
+uploads/
+comparison_result.json
+
+# Tài liệu thiết kế nội bộ (không public)
+docs/
