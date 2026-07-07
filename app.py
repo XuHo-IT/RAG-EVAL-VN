@@ -85,6 +85,8 @@ button.primary, .primary button, button[variant="primary"] { color: #111111 !imp
   line-height: 1.1; letter-spacing: -0.02em; color: #FFFFFF !important; margin: 0; font-weight: 600; }
 #app-sub { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 12px;
   letter-spacing: 0.08em; text-transform: uppercase; color: #C9C9C9 !important; margin-top: 12px; }
+#app-note { font-size: 13px; line-height: 1.6; color: #C9C9C9 !important; margin-top: 10px;
+  max-width: 640px; }
 .section-label { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 11px;
   letter-spacing: 0.12em; text-transform: uppercase; color: #C9C9C9 !important;
   border-bottom: 1px solid var(--line); padding-bottom: 8px; margin: 6px 0 4px; }
@@ -223,6 +225,9 @@ def build_ui() -> gr.Blocks:
                 "<h1 id='app-title'>RAG Eval Playground VN</h1>"
                 "<div id='app-sub'>Đo lường thay vì đoán mò — so sánh cấu hình "
                 "RAG cho tài liệu tiếng Việt</div>"
+                "<div id='app-note'>Lần chạy đầu cần tải model (1–2 phút). Trên CPU "
+                "miễn phí nên chạy 1–2 cấu hình mỗi lần cho mượt; bỏ chọn sinh câu "
+                "trả lời để đo nhanh chỉ phần retrieval.</div>"
             )
 
         with gr.Row(elem_id="main-row", equal_height=False):
