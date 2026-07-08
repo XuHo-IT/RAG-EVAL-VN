@@ -8,6 +8,7 @@ Logic RAG nằm ở pipeline.py; file này chỉ lo giao diện và trình bày 
 
 from __future__ import annotations
 
+import json
 import os
 import sys
 
@@ -27,6 +28,7 @@ from pipeline import run_many
 from utils import read_document
 
 SAMPLE_PATH = os.path.join(os.path.dirname(__file__), "data", "sample_vn.txt")
+PRECOMPUTED_PATH = os.path.join(os.path.dirname(__file__), "data", "precomputed_demo.json")
 
 CONFIG_CHOICES = [(c.label(), c.id) for c in CONFIGS]
 DEFAULT_SELECTED = [c.id for c in CONFIGS[:3]]
@@ -141,6 +143,23 @@ def run_comparison(document_text, question, reference, selected_ids, do_generate
     return metrics_df, chart_df, answers_md, chunks_md
 
 
+def load_precomputed():
+    """Nạp kết quả đã tính sẵn (từ data/precomputed_demo.json) và hiển thị NGAY,
+    không cần tải model hay chạy pipeline. Giải quyết rào cản chờ ~40s/cấu hình
+    trên CPU miễn phí — người dùng thấy bảng so sánh tức thì rồi mới chạy live nếu muốn."""
+    try:
+        with open(PRECOMPUTED_PATH, encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception as e:
+        raise gr.Error(f"Chưa có dữ liệu demo tính sẵn: {e}")
+    results = data["results"]
+    return (
+        data["document"], data["question"], data["reference"],
+        _build_metrics_table(results), _build_chart_df(results),
+        _build_answers_md(results), _build_chunks_md(results),
+    )
+
+
 # ── Dựng bảng / chart / markdown ─────────────────────────────────────────────
 _METRIC_LABELS = {
     "config": "Cấu hình",
@@ -225,8 +244,10 @@ def build_ui() -> gr.Blocks:
                 "<h1 id='app-title'>RAG Eval Playground VN</h1>"
                 "<div id='app-sub'>Đo lường thay vì đoán mò — so sánh cấu hình "
                 "RAG cho tài liệu tiếng Việt</div>"
-                "<div id='app-note'>Lần chạy đầu cần tải model (1–2 phút). Trên CPU "
-                "miễn phí nên chạy 1–2 cấu hình mỗi lần cho mượt; bỏ chọn sinh câu "
+                "<div id='app-note'>Chạy live trên CPU miễn phí khá chậm — mỗi cấu "
+                "hình mất khoảng 40 giây (tải model lần đầu thêm 1–2 phút). Muốn xem "
+                "ngay, bấm <b>Xem kết quả mẫu tức thì</b> để hiện bảng so sánh đã tính "
+                "sẵn. Khi chạy live, nên chọn 1–2 cấu hình và có thể bỏ chọn sinh câu "
                 "trả lời để đo nhanh chỉ phần retrieval.</div>"
             )
 
@@ -259,6 +280,8 @@ def build_ui() -> gr.Blocks:
 
             with gr.Column(scale=1):
                 gr.HTML("<div class='section-label'>Kết quả đo lường</div>")
+                demo_btn = gr.Button("Xem kết quả mẫu tức thì (không cần tải model)",
+                                     variant="primary")
                 gr.Markdown(
                     "Nhãn BEST đánh dấu cấu hình thắng ở mỗi cột. Precision và "
                     "relevance là đo tự động gần đúng, cần có đáp án chuẩn."
@@ -279,6 +302,11 @@ def build_ui() -> gr.Blocks:
         # Sự kiện
         sample_btn.click(load_sample, outputs=document_text)
         upload.upload(on_upload, inputs=upload, outputs=document_text)
+        demo_btn.click(
+            load_precomputed,
+            outputs=[document_text, question, reference,
+                     metrics_out, chart_out, answers_out, chunks_out],
+        )
         run_btn.click(
             run_comparison,
             inputs=[document_text, question, reference, configs_sel, do_generate],

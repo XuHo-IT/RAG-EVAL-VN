@@ -7,6 +7,14 @@ Upload tài liệu tiếng Việt, đặt câu hỏi, rồi chạy **song song n
 (chunking / embedding / rerank / top-k) và xem **bảng so sánh metrics** để biết
 cấu hình nào cho câu trả lời tốt nhất — tất cả bằng open model, miễn phí.
 
+**Demo trực tiếp:** https://huggingface.co/spaces/XuanHoa/rag-eval-vn
+(bấm "Xem kết quả mẫu tức thì" để thấy bảng so sánh ngay, không phải đợi tải model).
+
+<!-- GIF demo: quay 10s bấm "Xem kết quả mẫu tức thì" → bảng metrics hiện ra,
+     lưu thành demo.gif ở gốc repo rồi thay dòng dưới:
+![demo](demo.gif)
+-->>
+
 ## Vấn đề
 
 Xây một hệ thống RAG buộc phải chọn: cắt tài liệu (chunk) to hay nhỏ? Dùng embedding
@@ -27,6 +35,7 @@ liệu khách quan: **retrieval precision, answer relevance, latency, cost (toke
 - **Tiếng Việt là công dân hạng nhất** — tách câu VN (underthesea, có fallback),
   đếm token bằng chính tokenizer của embedding model.
 - **Miễn phí hoàn toàn** — open model, không API key, chạy local hoặc HF Spaces.
+- **Demo tức thì** — nút xem kết quả tính sẵn để không phải đợi ~40s/cấu hình trên CPU.
 
 ## Cách chạy (local)
 
